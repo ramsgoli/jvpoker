@@ -21,6 +21,15 @@ public class Hand
 		handId = numHands; 
 	}
 
+	public void clearHand()
+	{
+		for (int idx = 0; idx < cards.length; idx++)
+		{
+			cards[idx] = null;
+		}
+		currNumCards = 0; 
+	}
+
 
 	public void deal(Card card)
 	{
@@ -56,8 +65,9 @@ public class Hand
 
 		for (int idx = 0; idx < numCardsInHand; idx++)
 		{
-			System.out.println("Card " + (idx+1) + " = " + cards[idx] + "\n");
+			System.out.print( cards[idx]  + ", ");
 		}
+
 	}
 
 	public Card getHighCard()

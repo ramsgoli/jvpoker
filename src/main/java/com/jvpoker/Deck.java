@@ -12,6 +12,8 @@ public class Deck {
 	
 	Deck() {
 		dk = new ArrayList<Card>(DECK_SIZE);
+		fillDeck();
+		shuffle();
 	}
 	public int getSize() {
 		return dk.size();
