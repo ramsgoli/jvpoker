@@ -26,7 +26,13 @@ public class TieBreaker {
 
 	private checkStraight(ArrayList<Player> wl)
 		Card topCard = wl[0].getHighCard();
-		for (int idx		
+		for (int idx = 1; idx < wl.size(); idx++) {
+			if (wl[idx].compareTo(topCard) == 1) {
+				topCard = wl[idx];
+			}
+		}
+
+			 		
 
 }
 

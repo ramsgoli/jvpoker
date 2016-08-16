@@ -57,15 +57,9 @@ public class Card implements Comparable<Card>
 		}
 		else if (this.number == card.number)
 		{
-			if (this.suite < card.suite)
-			{
-				return -1;
-			}
-			else
-			{
-				return 1;
-			}
+			return 0;
 		}
+
 		else
 		{
 			return 1;
