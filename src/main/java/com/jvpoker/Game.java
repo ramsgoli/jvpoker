@@ -6,20 +6,28 @@ import com.jvpoker.Deck;
 import com.jvpoker.CommCards;
 import com.jvpoker.Betting;
 import com.jvpoker.Player;
+import com.jvpoker.MyFormatter;
+import java.util.logging.ConsoleHandler;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class Game {
-	 private static Logger logger =
-		       Logger.getLogger(Game.class.getName());
 
+public class Game {
 	private int numPlayers;
 	private double tableValue = 1000;
 	private Player[] players;
 	private Deck gd;
 	private CommCards commCards;
 	private Betting betManager;
+	private static Logger logger = Logger.getLogger(Game.class.getName());
+	static {
+		logger.setUseParentHandlers(false);
+		MyFormatter formatter = new MyFormatter();
+		ConsoleHandler handler = new ConsoleHandler();
+		handler.setFormatter(formatter);
+		logger.addHandler(handler);
+	}
 
 	public void initialize(int numPlayers) {
 		this.numPlayers = numPlayers;
@@ -53,7 +61,7 @@ public class Game {
 			players[idx] = new Player(tableValue);
 		}
 		//testing
-		logger.info("Initialize players:");
+		logger.info("Initialize players: ");
 		printPlayers();
 	}
 
@@ -80,7 +88,7 @@ public class Game {
 		}
 
 		//Testing
-		logger.info("----Next Round----");
+		logger.info("----Next Round---- ");
 	}
 	/*
 	public Hand[] getHands() {
@@ -123,6 +131,9 @@ public class Game {
 			}
 		}
 
+		if (wl.size() != 1) {
+			TieBreaker.breakTie(wl);
+		}
 		betManager.winner(wl);
 
 		//Testing
@@ -151,6 +162,7 @@ public class Game {
 	}
 
 	public static void main(String[] args) {
+
 		int numPlayers = 5;
 		int numRounds = 0;
 		Game game = new Game();
@@ -167,3 +179,5 @@ public class Game {
 		game.playRounds(numRounds);
 	}
 }
+
+

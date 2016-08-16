@@ -25,9 +25,9 @@
                 <configuration>
                     <mainClass>com.jvpoker.Game</mainClass>
 					<arguments>
-						<argument>10</argument>
-
+						<argument>3</argument>
 					</arguments>
+
                 </configuration>
             </plugin>
         </plugins>

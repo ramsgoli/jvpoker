@@ -1,8 +1,11 @@
 package com.jvpoker;
 
 import com.jvpoker.Card;
+import com.jvpoker.MyFormatter;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.logging.Logger;
+import java.util.logging.ConsoleHandler;
 
 public class Hand
 {
@@ -11,8 +14,18 @@ public class Hand
 	private int numCardsInHand = 5;
 	private int currNumCards = 0;
 	private int rank;
+	private Card commonCard;
 
+	private static Logger logger = Logger.getLogger(Hand.class.getName());
 	private int handId;
+	static {
+		logger.setUseParentHandlers(false);
+		MyFormatter formatter = new MyFormatter();
+		ConsoleHandler handler = new ConsoleHandler();
+		handler.setFormatter(formatter);
+		logger.addHandler(handler);
+	}
+
 
 	public Hand()
 	{
@@ -65,27 +78,14 @@ public class Hand
 
 		for (int idx = 0; idx < numCardsInHand; idx++)
 		{
-			System.out.print( cards[idx]  + ", ");
+			logger.info( cards[idx]  + ", ");
 		}
 
 	}
 
 	public Card getHighCard()
 	{
-		Card highCard = cards[0];
-
-		for (int idx = 1; idx < 5; idx++)
-		{
-			if (cards[idx].getNumber() > highCard.getNumber()) {
-				highCard = cards[idx];
-			}
-			else if (cards[idx].getNumber() == highCard.getNumber()) {
-				if (cards[idx].getSuite() > highCard.getSuite()) {
-					highCard = cards[idx];
-				}
-			}
-		}
-		return highCard;
+		return cards[4]; 
 	} 
 
 	
@@ -118,7 +118,7 @@ public class Hand
 
 	private boolean isRoyalFlush() {
 		if (!isStraightFlush()) {return false;}
-		if (cards[0].getNumber() != 15 - numCardsInHand) { return false;}
+		if (cards[0].getNumber() != 10) { return false;}
 
 		return true;
 
