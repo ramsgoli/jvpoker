@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class TieBreaker {
 
+<<<<<<< HEAD
 	private static int numTiedHands;
 	private static int handRank;
 
@@ -75,6 +76,28 @@ public class TieBreaker {
 		}
 
 	}
+=======
+	private int numTiedHands;
+	private int handRank;
+
+	public static void breakTie(ArrayList<Player> wl) {
+		numTiedHands = wl.size();
+		int handRank = wl[0].getHandRank();
+
+
+	private checkPairs(ArrayList<Player> wl) {
+	}
+
+	private checkStraight(ArrayList<Player> wl)
+		Card topCard = wl[0].getHighCard();
+		for (int idx = 1; idx < wl.size(); idx++) {
+			if (wl[idx].compareTo(topCard) == 1) {
+				topCard = wl[idx];
+			}
+		}
+
+			 		
+>>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 
 }
 

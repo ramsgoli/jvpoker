@@ -1,7 +1,10 @@
 package com.jvpoker;
 
 import com.jvpoker.Hand;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 import java.util.logging.Logger;
 
 public class Player implements Comparable<Player> {
@@ -61,11 +64,18 @@ public class Player implements Comparable<Player> {
 		return amount;
 	}
 
+<<<<<<< HEAD
 	public ArrayList<Card> getCommonValues() {
 		return hand.getCommonValues();
 	}
 
 
+=======
+	public Card getHighCard() {
+		return hand.getHighCard();
+	}
+
+>>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 	@Override
 	public String toString() {
 		return "P: " + id + ", M: " + totalMoney;   

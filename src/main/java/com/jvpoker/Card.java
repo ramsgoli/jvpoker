@@ -48,7 +48,10 @@ public class Card implements Comparable<Card>
 		}
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 	@Override     
 	public int compareTo(Card card) {          
 

@@ -15,6 +15,10 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+<<<<<<< HEAD
+=======
+
+>>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 	<build>
         <plugins>
             <plugin>
@@ -32,5 +36,8 @@
         </plugins>
     </build>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 </project>

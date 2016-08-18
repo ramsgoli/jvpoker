@@ -130,12 +130,19 @@ public class Game {
 				wl.add(players[idx]);
 			}
 		}
+<<<<<<< HEAD
 		
 		/*
 		if (wl.size() != 1) {
 			TieBreaker.breakTie(wl);
 		}
 		*/
+=======
+
+		if (wl.size() != 1) {
+			TieBreaker.breakTie(wl);
+		}
+>>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 		betManager.winner(wl);
 
 		//Testing
