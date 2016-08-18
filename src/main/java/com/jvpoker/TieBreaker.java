@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 public class TieBreaker {
 
-<<<<<<< HEAD
 	private static int numTiedHands;
 	private static int handRank;
 
@@ -76,7 +75,6 @@ public class TieBreaker {
 		}
 
 	}
-=======
 	private int numTiedHands;
 	private int handRank;
 
@@ -97,7 +95,6 @@ public class TieBreaker {
 		}
 
 			 		
->>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 
 }
 
