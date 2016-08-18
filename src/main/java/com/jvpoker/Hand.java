@@ -3,10 +3,7 @@ package com.jvpoker;
 import com.jvpoker.Card;
 import com.jvpoker.MyFormatter;
 import java.util.Arrays;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
->>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 import java.util.Collections;
 import java.util.logging.Logger;
 import java.util.logging.ConsoleHandler;
@@ -18,14 +15,11 @@ public class Hand
 	private int numCardsInHand = 5;
 	private int currNumCards = 0;
 	private int rank;
-<<<<<<< HEAD
 	private ArrayList<Card> commonValues = new ArrayList<Card>(4); //idx 0 = common 4 of a kind card,
 																   //idx 1 = common 3 of a kind card,
 																   //idx 2 and 3 = common 2 of a kind cards
 	private int count = 2;
-=======
 	private Card commonCard;
->>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 
 	private static Logger logger = Logger.getLogger(Hand.class.getName());
 	private int handId;
@@ -83,13 +77,10 @@ public class Hand
 		return cards;
 	}
 
-<<<<<<< HEAD
 	public ArrayList<Card> getCommonValues() {
 		return commonValues;
 	}
 
-=======
->>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 	public void printHand()
 	{
 		//Arrays.sort(cards);
@@ -106,7 +97,6 @@ public class Hand
 		return cards[4]; 
 	} 
 
-<<<<<<< HEAD
 	public Card getSecondHighCard() {
 		return cards[3];
 	}
@@ -122,8 +112,6 @@ public class Hand
 	public Card getLowestCard() {
 		return cards[0];
 	}
-=======
->>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 	
 	public int getCategory() {
 		//sortHand();
@@ -222,7 +210,6 @@ public class Hand
 		for (int idx = startIdx; idx <= endIdx + 1 - num; idx++) {
 			if (cards[idx].getNumber() == cards[idx + num-1].getNumber()) {
 				if (idx == endIdx + 1 - num) {
-<<<<<<< HEAD
 					switch (num) {
 						case 4: commonValues.set(0, cards[idx]);
 								break;
@@ -232,13 +219,10 @@ public class Hand
 								count++;
 								break;
 					}
-=======
->>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 					return true;
 				}
 				else if (cards[idx + num-1].getNumber() !=
 						cards[idx+num].getNumber()) {
-<<<<<<< HEAD
 						switch (num) {
 						case 4: commonValues.set(0, cards[idx]);
 								break;
@@ -248,8 +232,6 @@ public class Hand
 								count++;
 								break;
 						}
-=======
->>>>>>> b996c8fdc170ab2aec1a1090cfa26f6e159e5a15
 					return true;
 					}
 				else {

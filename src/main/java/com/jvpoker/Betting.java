@@ -52,8 +52,6 @@ public class Betting {
 			val = 0.0;
 		}
 		
-	}
-
 	public void startRound() {
 	}
 
