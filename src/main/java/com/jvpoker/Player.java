@@ -44,9 +44,6 @@ public class Player implements Comparable<Player> {
 		return hand.getCategory();
 	}
 
-	public Card getHighCard() {
-		return hand.getHighCard();
-	}
 
 	public void startWithMoney(double amount) {
 		totalMoney = amount;
@@ -65,6 +62,9 @@ public class Player implements Comparable<Player> {
 		return hand.getCommonValues();
 	}
 
+	public Hand getHand() {
+		return hand;
+	}
 
 	public Card getHighCard() {
 		return hand.getHighCard();

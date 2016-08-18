@@ -37,9 +37,25 @@ public class TieBreaker {
 		}
 	}
 
+	private void checkFlush(ArrayList<Player> wl) {
+		Card highCard = wl.get(0).getHighCard();
+	
+		for (int idx = 1; idx < wl.size(); idx++) {
+			if (wl.get(idx).getHighCard().compareTo(highCard) == 1) {
+				highCard = wl.get(idx).getHighCard();
+			}
+		}
+		for (int idx = 0; idx < wl.size(); idx++) {
+			if (wl.get(idx).getHighCard().compareTo(highCard) == -1) {
+				wl.remove(idx);
+				idx--;
+			}
+		}
 
+	}
+		
 
-	private void checkStraightOrFlush(ArrayList<Player> wl) {
+	private void checkStraight(ArrayList<Player> wl) {
 		Card highCard = wl.get(0).getHighCard();
 		
 		for (int idx = 1; idx < wl.size(); idx++) {
