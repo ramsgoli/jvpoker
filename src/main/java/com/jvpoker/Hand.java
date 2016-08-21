@@ -3,6 +3,7 @@ package com.jvpoker;
 import com.jvpoker.Card;
 import com.jvpoker.MyFormatter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ public class Hand
 	private int numCardsInHand = 5;
 	private int currNumCards = 0;
 	private int rank;
-	private ArrayList<Card> commonValues = new ArrayList<Card>(4); //idx 0 = common 4 of a kind card,
+	private HashMap<Integer, Card> commonValues = new HashMap<Integer, Card>(4); //idx 0 = common 4 of a kind card,
 																   //idx 1 = common 3 of a kind card,
 																   //idx 2 and 3 = common 2 of a kind cards
 	private int count = 2;
@@ -77,7 +78,7 @@ public class Hand
 		return cards;
 	}
 
-	public ArrayList<Card> getCommonValues() {
+	public HashMap<Integer, Card> getCommonValues() {
 		return commonValues;
 	}
 
@@ -96,6 +97,10 @@ public class Hand
 	{
 		return cards[4]; 
 	} 
+
+	public Card getCard(int idx) {
+		return cards[idx];
+	}
 
 	public Card getSecondHighCard() {
 		return cards[3];
@@ -211,29 +216,44 @@ public class Hand
 			if (cards[idx].getNumber() == cards[idx + num-1].getNumber()) {
 				if (idx == endIdx + 1 - num) {
 					switch (num) {
-						case 4: commonValues.set(0, cards[idx]);
+						case 4: commonValues.put(0, cards[idx]);
 								break;
-						case 3: commonValues.set(1, cards[idx]);
+						case 3: commonValues.put(1, cards[idx]);
 								break;
-						case 2: commonValues.set(count, cards[idx]);
+						case 2: commonValues.put(count, cards[idx]);
+								if (count == 3) {
+									if (commonValues.get(2).compareTo(commonValues.get(3)) == -1) {
+										Card temp = commonValues.get(2);
+										commonValues.put(2, commonValues.get(3));
+										commonValues.put(3, temp);
+									}
+
 								count++;
 								break;
+								}
 					}
 					return true;
 				}
 				else if (cards[idx + num-1].getNumber() !=
 						cards[idx+num].getNumber()) {
 						switch (num) {
-						case 4: commonValues.set(0, cards[idx]);
+						case 4: commonValues.put(0, cards[idx]);
 								break;
-						case 3: commonValues.set(1, cards[idx]);
+						case 3: commonValues.put(1, cards[idx]);
 								break;
-						case 2: commonValues.set(count, cards[idx]);
+						case 2: commonValues.put(count, cards[idx]);
+								if (count == 3) {
+									if (commonValues.get(2).compareTo(commonValues.get(3)) == -1) {
+										Card temp = commonValues.get(2);
+										commonValues.put(2, commonValues.get(3));
+										commonValues.put(3, temp);
+									}	
 								count++;
 								break;
-						}
+								}
 					return true;
-					}
+						}
+						}		
 				else {
 					return false;
 				}

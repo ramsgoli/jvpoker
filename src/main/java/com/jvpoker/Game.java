@@ -131,15 +131,10 @@ public class Game {
 			}
 		}
 		
-		/*
 		if (wl.size() != 1) {
 			TieBreaker.breakTie(wl);
 		}
-		*/
 
-		if (wl.size() != 1) {
-			TieBreaker.breakTie(wl);
-		}
 		betManager.winner(wl);
 
 		//Testing

@@ -3,6 +3,7 @@ package com.jvpoker;
 import com.jvpoker.Hand;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+import java.util.HashMap;
 
 public class Player implements Comparable<Player> {
 
@@ -58,12 +59,16 @@ public class Player implements Comparable<Player> {
 		return amount;
 	}
 
-	public ArrayList<Card> getCommonValues() {
+	public HashMap<Integer, Card> getCommonValues() {
 		return hand.getCommonValues();
 	}
 
 	public Hand getHand() {
 		return hand;
+	}
+
+	public Card getCard(int idx) {
+		return hand.getCard(idx);
 	}
 
 	public Card getHighCard() {

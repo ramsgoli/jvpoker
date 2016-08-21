@@ -51,6 +51,7 @@ public class Betting {
 		for (Double val : bm.values()) {
 			val = 0.0;
 		}
+	}
 		
 	public void startRound() {
 	}
