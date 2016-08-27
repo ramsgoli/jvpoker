@@ -11,15 +11,20 @@ import java.util.logging.ConsoleHandler;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+import java.net.ServerSocket;
+import java.net.Server;
+import java.io.PrintWriter;
+
 
 
 public class Game {
-	private int numPlayers;
+	private int numPlayers = 0;
 	private double tableValue = 1000;
 	private Player[] players;
 	private Deck gd;
 	private CommCards commCards;
 	private Betting betManager;
+	private ArrayList playerStreams;
 	private static Logger logger = Logger.getLogger(Game.class.getName());
 	static {
 		logger.setUseParentHandlers(false);
@@ -29,6 +34,26 @@ public class Game {
 		logger.addHandler(handler);
 	}
 
+	public void go() {
+
+		playerStreams = new ArrayList();
+
+		try {
+
+			ServerSocket serverSocket = new ServerSocket(4242);
+			while (numPlayers < 4) {
+				Socket commSocket = serverSocket.accept();
+				PrintWriter writer = new PrintWriter(serverSocket.getOutputStream());
+				playerStreams.add(writer);
+
+		} catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		
+
+
+
+	}
 	public void initialize(int numPlayers) {
 		this.numPlayers = numPlayers;
 		commCards = new CommCards();
