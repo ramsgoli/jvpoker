@@ -11,9 +11,6 @@ import java.util.logging.ConsoleHandler;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-import java.net.ServerSocket;
-import java.net.Server;
-import java.io.PrintWriter;
 
 
 
@@ -34,26 +31,7 @@ public class Game {
 		logger.addHandler(handler);
 	}
 
-	public void go() {
 
-		playerStreams = new ArrayList();
-
-		try {
-
-			ServerSocket serverSocket = new ServerSocket(4242);
-			while (numPlayers < 4) {
-				Socket commSocket = serverSocket.accept();
-				PrintWriter writer = new PrintWriter(serverSocket.getOutputStream());
-				playerStreams.add(writer);
-
-		} catch(IOException ex) {
-			ex.printStackTrace();
-		}
-		
-
-
-
-	}
 	public void initialize(int numPlayers) {
 		this.numPlayers = numPlayers;
 		commCards = new CommCards();
