@@ -18,6 +18,7 @@ public class Game {
 	private int numPlayers = 0;
 	private double tableValue = 1000;
 	private Player[] players;
+	private ArrayList<String> idList;
 	private Deck gd;
 	private CommCards commCards;
 	private Betting betManager;
@@ -31,11 +32,11 @@ public class Game {
 		logger.addHandler(handler);
 	}
 
-
-	public void initialize(int numPlayers) {
-		this.numPlayers = numPlayers;
+	public Game(ArrayList<String> idList) {
+		this.idList = idList;	
+		numPlayers = idList.size();
 		commCards = new CommCards();
-		initPlayers();
+		initPlayers(idList);
 		betManager = new Betting(players);
 	}
 
@@ -57,12 +58,15 @@ public class Game {
 		}
 	}
 
-	public void initPlayers() {
+	public void initPlayers(ArrayList<String> idList) {
 		players = new Player[numPlayers];
+		int idx = 0;
 
-		for (int idx = 0; idx < numPlayers; idx++) {
-			players[idx] = new Player(tableValue);
+		for (String id: idList) {
+			players[idx] = new Player(id, tableValue);
+			idx++;
 		}
+
 		//testing
 		logger.info("Initialize players: ");
 		printPlayers();
@@ -147,10 +151,14 @@ public class Game {
 		printPlayers();
 	}
 
+	public Player[] getPlayers() {
+		return players;
+	}
+
 	public void printHands() {
 
 		for (int idx = 0; idx < numPlayers; idx++) {
-				logger.info(Integer.toString(players[idx].getID()));
+				logger.info(players[idx].getID());
 				players[idx].printHand();
 				logger.info(" Rank: " + players[idx].getHandRank());
 				logger.info("---------");
@@ -165,23 +173,6 @@ public class Game {
 		}
 	}
 
-	public static void main(String[] args) {
-
-		int numPlayers = 5;
-		int numRounds = 0;
-		Game game = new Game();
-		game.initialize(numPlayers);
-		if (args != null && args.length > 0)
-		{
-			numRounds = Integer.parseInt(args[0]);
-		}
-		else
-		{
-			numRounds = 1;
-		}
-
-		game.playRounds(numRounds);
-	}
 }
 
 

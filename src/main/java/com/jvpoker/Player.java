@@ -12,18 +12,15 @@ public class Player implements Comparable<Player> {
 	
 	private Hand hand;
 	private double totalMoney;
-	private int decision; //1 = check; 2 = raise; 3 = fold
-	private static int numPlayers;
-	private int id;
+	private String id;
 
-	public Player(double money) {
-		numPlayers++;
-		id = numPlayers;
+	public Player(String id, double money) {
+		this.id = id;
 		totalMoney = money;
 		hand = new Hand();
 	}
 
-	public int getID() {
+	public String getID() {
 		return id;
 	}
 
@@ -75,11 +72,12 @@ public class Player implements Comparable<Player> {
 		return hand.getHighCard();
 	}
 
+	/*
 	@Override
 	public String toString() {
 		return "P: " + id + ", M: " + totalMoney;   
 	}
-
+	*/
 	@Override
 	public int compareTo(Player player) {
 		if (this.getHandRank() < player.getHandRank())

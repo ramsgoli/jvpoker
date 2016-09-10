@@ -1,67 +1,97 @@
 package com.jvpoker;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.io.OutputStreamWriter;
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
+import java.util.ArrayList;
+
+import com.jvpoker.*;
+
+import com.corundumstudio.socketio.SocketIOServer;
+import com.corundumstudio.socketio.SocketIOClient;
+import com.corundumstudio.socketio.Configuration;
+import com.corundumstudio.socketio.Transport;
+import com.corundumstudio.socketio.listener.DataListener;
+import com.corundumstudio.socketio.AckRequest;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GameNetwork {
 
 
 	private int numPlayers = 0;
-	private Socket socket;
+	private ArrayList<String> idList = new ArrayList<String>();
+	private Game game;
+	private int gameState;
+	private int port = 8080;
+	private Player[] players; 
+	private ObjectMapper mapper;
 
 	public static void main(String[] args) throws Exception{
 		GameNetwork g = new GameNetwork();
-		g.sendPut();
-		g.listenForNode();
+		g.startServer();
 	}
 
-	public void sendPut() throws Exception {
+	
+	public void startServer() {
+		Configuration config = new Configuration();
+		config.setHostname("localhost");
+		config.setPort(port);
 
-		System.out.println("connecting to url 'http://localhost:4000");
-		String url = "http://localhost:4000/";
-		URL obj = new URL(url);
+		final SocketIOServer server = new SocketIOServer(config);
+		System.out.println("server started at port " + port);
 
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		con.setRequestMethod("PUT");
-		con.setDoOutput(true);
-		con.setRequestProperty("Content-Type", "application/json");
-		con.setRequestProperty("Accept", "application/json");
+		server.addEventListener("newPlayer", String.class, new DataListener<String>() {
 
+			@Override
+			public void onData(SocketIOClient client, String id, AckRequest ackRequest) {
+				System.out.println("ID received: " + id);
+				idList.add(id);
+				server.getBroadcastOperations().sendEvent("confirmed", id);
+			}
+		});
+		server.addEventListener("startGame", Boolean.class, new DataListener<Boolean>() {
 
-		String payload = "{\"name\": \"Ram Goli\"}";
-		OutputStreamWriter ows = new OutputStreamWriter(con.getOutputStream());
-		ows.write(payload);
-		ows.flush();
-		ows.close();
-		
-
-		int responseCode = con.getResponseCode();
-		System.out.println("put sent. Response Code: " + responseCode);
-		
-	}
-
-	public void listenForNode() {
-		try {
-			socket = IO.socket("http://localhost:4040");
-			socket.on("initialize", new Emitter.Listener() {
-				public void call(Object... args) {
-					numPlayers = (Integer) args[0];
-					System.out.println(numPlayers + " are initialized.");
+			@Override
+			public void onData(SocketIOClient client, Boolean start, AckRequest ackRequest) {
+				if (start) {
+					System.out.println("Starting game with " + idList.size() + " players.");
+					game = new Game(idList);
+					System.out.println("New game initialized. startind hole cards.");
+					startDealHoleCards();
 				}
-			
-			}); 
-			socket.connect();
-		} catch(Exception e) {
-			System.out.println(e);
-		}
+
+			}
+		});
+		server.start();
 	
 	}
 
+	public void startBuyIn() {
+		game.startBuyIn();	
+	
+	}
 
+	
 
+	public void startDealHoleCards() {
+		game.dealHoleCards();
+		System.out.println("Hole cards dealt");
+		players = game.getPlayers();
+		Player player1 = players[0];
+		try {
+			mapper = new ObjectMapper();
+			String playerJsonString = mapper.writeValueAsString(player1);
+			System.out.println("Players initialized as json:");
+			System.out.println(playerJsonString);
+		} catch  (JsonGenerationException e) {
+	 		e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }
